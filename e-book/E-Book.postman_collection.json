@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "3af9547f-eb19-438a-bb8c-a289d21411a0",
+		"name": "E-Book",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3907255"
+	},
+	"item": [
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?all=true",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "all",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?id=5",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books By Author",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?author=David Goggins",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "David Goggins"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books By Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?title=The 7 Habits of Highly Effective People",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "The 7 Habits of Highly Effective People"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books By Price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?price=12.26",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "price",
+							"value": "12.26"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books By Price Range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?minPrice=10.00&maxPrice=20.00",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "minPrice",
+							"value": "10.00"
+						},
+						{
+							"key": "maxPrice",
+							"value": "20.00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Title Contains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?titleContains=Habits",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "titleContains",
+							"value": "Habits"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Author Contains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?authorContains=David",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "authorContains",
+							"value": "David"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Description Contains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?descriptionContains=and",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "descriptionContains",
+							"value": "and"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book by ISBN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/search?isbn=978-1982137274",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "isbn",
+							"value": "978-1982137274"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"title\": \"The Art of Happiness: A Handbook for Living\",\n        \"author\": \"Dalai Lama\",\n        \"description\": \"Through conversations, stories, and meditations, the Dalai Lama shows us how to defeat day-to-day anxiety, insecurity, anger, and discouragement.\",\n        \"isbn\": \"978-1573227544\",\n        \"price\": 15.49,\n        \"frontCoverImageUrl\": \"images/978-1573227544_front_cover.jpg\",\n        \"backCoverImageUrl\": \"images/978-1573227544_rear_cover.jpg\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/books/",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Book (Price updated)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 4,\n    \"title\": \"The Art of Happiness: A Handbook for Living\",\n    \"author\": \"Dalai Lama\",\n    \"description\": \"Through conversations, stories, and meditations, the Dalai Lama shows us how to defeat day-to-day anxiety, insecurity, anger, and discouragement.\",\n    \"isbn\": \"978-1573227544\",\n    \"price\": 17.49,\n    \"frontCoverImageUrl\": \"images/978-1573227544_front_cover.jpg\",\n    \"backCoverImageUrl\": \"images/978-1573227544_rear_cover.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/books/",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/books/3",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

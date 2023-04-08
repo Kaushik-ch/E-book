@@ -1,28 +1,39 @@
 package com.mycompany.ebook;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name= "BOOK")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "isbn")
     private String isbn;
+
+    @Column(name = "price")
     private Double price;
-    private List<String> coverImagesUrl;
+
+    @Column(name = "FRONT_COVER_IMAGE_URL")
+    private String frontCoverImageUrl;
+
+    @Column(name = "BACK_COVER_IMAGE_URL")
+    private String backCoverImageUrl;
 
     public Book() {
-    }
-
-    public Book(Long id, String title, String author, String description, String isbn, Double price, List<String> coverImagesUrl) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.isbn = isbn;
-        this.price = price;
-        this.coverImagesUrl = coverImagesUrl;
     }
 
     public Long getId() {
@@ -73,11 +84,19 @@ public class Book {
         this.price = price;
     }
 
-    public List<String> getCoverImagesUrl() {
-        return coverImagesUrl;
+    public String getFrontCoverImageUrl() {
+        return frontCoverImageUrl;
     }
 
-    public void setCoverImagesUrl(List<String> coverImagesUrl) {
-        this.coverImagesUrl = coverImagesUrl;
+    public void setFrontCoverImageUrl(String frontCoverImageUrl) {
+        this.frontCoverImageUrl = frontCoverImageUrl;
+    }
+
+    public String getBackCoverImageUrl() {
+        return backCoverImageUrl;
+    }
+
+    public void setBackCoverImageUrl(String backCoverImageUrl) {
+        this.backCoverImageUrl = backCoverImageUrl;
     }
 }
