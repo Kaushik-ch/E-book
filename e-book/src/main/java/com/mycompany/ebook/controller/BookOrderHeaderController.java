@@ -6,6 +6,7 @@ import com.mycompany.ebook.entity.BookOrderHeader;
 import com.mycompany.ebook.repository.BookOrderDetailRepository;
 import com.mycompany.ebook.repository.BookOrderHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -42,7 +43,27 @@ public class BookOrderHeaderController {
     }
 
     @GetMapping("/{id}")
-    public BookOrderHeader getOrderById(@PathVariable("id") Long id) {
-        return bookOrderHeaderRepository.findBookOrderHeaderById(id);
+    public List<BookOrderHeader> getOrderById(@PathVariable("id") Long id) {
+        return bookOrderHeaderRepository.findBookOrderHeaderByCustomerId(104L);//.findBookOrderHeaderById(id);
     }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<BookOrderHeader>> getBookOrders(
+            @RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "trackingNumber", required = false) String trackingNumber,
+            @RequestParam(value = "customerId", required = false) Long customerId
+    ) {
+        List<BookOrderHeader> bookOrderHeaders = null;
+
+        if (id != null) {
+            bookOrderHeaders = bookOrderHeaderRepository.findBookOrderHeaderById(id);
+        } else if (trackingNumber != null) {
+            bookOrderHeaders = bookOrderHeaderRepository.findByTrackingNumber(trackingNumber);
+        } else if (customerId != null ) {
+            bookOrderHeaders = bookOrderHeaderRepository.findBookOrderHeaderByCustomerId(customerId);
+        }
+        return ResponseEntity.ok(bookOrderHeaders);
+    }
+
 }

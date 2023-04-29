@@ -15,7 +15,7 @@ public class BookOrderDetail {
     private BookOrderHeader orderHeader;
 
     //@Column(name = "BOOK_ID")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name= "BOOK_ID")
     private Book book;
 
@@ -42,9 +42,9 @@ public class BookOrderDetail {
         return book;
     }
 
-    public void setBook(Book book) {
+   /* public void setBook(Book book) {
         this.book = book;
-    }
+    }*/
 
     public Long getOrdered() {
         return ordered;
