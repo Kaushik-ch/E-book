@@ -5,10 +5,12 @@ import com.mycompany.ebook.entity.BookOrderDetail;
 import com.mycompany.ebook.entity.BookOrderHeader;
 import com.mycompany.ebook.repository.BookOrderDetailRepository;
 import com.mycompany.ebook.repository.BookOrderHeaderRepository;
+import com.mycompany.ebook.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,9 @@ public class BookOrderHeaderController {
     @Autowired
     private BookOrderDetailRepository bookOrderDetailRepository;
 
+    @Autowired
+    private BookRepository bookRepository;
+
     @PostMapping("/")
     public BookOrderHeader createOrder(@RequestBody BookOrderHeader header) {
         // Generate random integers for tracking number
@@ -33,7 +38,10 @@ public class BookOrderHeaderController {
 
         Double totalPrice = 0.00;
         for (BookOrderDetail bookOrderDetail: header.getDetails()) {
-               totalPrice += bookOrderDetail.getBook().getPrice() * bookOrderDetail.getOrdered();
+
+               Book book =  bookRepository.getReferenceById(bookOrderDetail.getBook().getId());
+
+               totalPrice += book.getPrice() * bookOrderDetail.getOrdered();
 
                bookOrderDetail.setOrderHeader(header);
         }
@@ -52,7 +60,11 @@ public class BookOrderHeaderController {
     public ResponseEntity<List<BookOrderHeader>> getBookOrders(
             @RequestParam(value = "id", required = false) Long id,
             @RequestParam(value = "trackingNumber", required = false) String trackingNumber,
-            @RequestParam(value = "customerId", required = false) Long customerId
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            @RequestParam(value = "minOrderDate", required = false) String minOrderDate,
+            @RequestParam(value = "maxOrderDate", required = false) String maxOrderDate,
+            @RequestParam(value = "minTotalPrice", required = false) Double minTotalPrice,
+            @RequestParam(value = "maxTotalPrice", required = false) Double maxTotalPrice
     ) {
         List<BookOrderHeader> bookOrderHeaders = null;
 
@@ -62,7 +74,14 @@ public class BookOrderHeaderController {
             bookOrderHeaders = bookOrderHeaderRepository.findByTrackingNumber(trackingNumber);
         } else if (customerId != null ) {
             bookOrderHeaders = bookOrderHeaderRepository.findBookOrderHeaderByCustomerId(customerId);
+        } else if (minOrderDate != null && maxOrderDate != null ) {
+            LocalDate minDate = LocalDate.parse(minOrderDate);
+            LocalDate maxDate = LocalDate.parse(maxOrderDate);
+            bookOrderHeaders = bookOrderHeaderRepository.findByOrderDateBetween(minDate.atStartOfDay(),maxDate.atStartOfDay());
+        } else if (minTotalPrice != null && maxTotalPrice != null ) {
+            bookOrderHeaders = bookOrderHeaderRepository.findByTotalPriceBetween(minTotalPrice, maxTotalPrice);
         }
+
         return ResponseEntity.ok(bookOrderHeaders);
     }
 
