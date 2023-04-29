@@ -1,12 +1,14 @@
-package com.mycompany.ebook;
+package com.mycompany.ebook.controller;
 
+
+import com.mycompany.ebook.entity.Book;
+import com.mycompany.ebook.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,7 +37,7 @@ public class BookController {
         if (id != null) {
             books = bookRepository.findBookById(id);
         } else if (isbn != null) {
-                books = bookRepository.findByIsbn(isbn);
+            books = bookRepository.findByIsbn(isbn);
         } else if (all != null)  {
             books = bookRepository.findAll();
         } else if (title != null && author != null ) {

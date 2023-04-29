@@ -1,4 +1,4 @@
-package com.mycompany.ebook;
+package com.mycompany.ebook.entity;
 
 import javax.persistence.*;
 import java.util.List;
