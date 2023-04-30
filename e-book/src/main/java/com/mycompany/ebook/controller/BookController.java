@@ -2,11 +2,14 @@ package com.mycompany.ebook.controller;
 
 
 import com.mycompany.ebook.entity.Book;
+import com.mycompany.ebook.entity.User;
 import com.mycompany.ebook.repository.BookRepository;
+import com.mycompany.ebook.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,9 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @GetMapping("/search")
     public ResponseEntity<List<Book>> getBooks(
@@ -32,6 +38,21 @@ public class BookController {
             @RequestParam(value = "descriptionContains", required = false) String descriptionContains,
             @RequestParam(value= "all", required = false) String all
     ) {
+
+        //JWT authentication
+        try {
+            // Retrieve email from the Security Context
+            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // Fetch and return user details
+            User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
+            if (loggedUser.getId() == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         List<Book> books = null;
 
         if (id != null) {
@@ -62,6 +83,21 @@ public class BookController {
 
     @PostMapping("/")
     public ResponseEntity<?> createBook(@RequestBody Book book) {
+
+        //JWT authentication
+        try {
+            // Retrieve email from the Security Context
+            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // Fetch and return user details
+            User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
+            if (loggedUser.getId() == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         try {
             Book savedBook = bookRepository.save(book);
             return ResponseEntity.ok(savedBook);
@@ -72,6 +108,21 @@ public class BookController {
 
     @PutMapping("/")
     public ResponseEntity<?> updateBook(@RequestBody Book book) {
+
+        //JWT authentication
+        try {
+            // Retrieve email from the Security Context
+            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // Fetch and return user details
+            User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
+            if (loggedUser.getId() == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         try {
             Book updatedBook = bookRepository.save(book);
             return ResponseEntity.ok(updatedBook);
@@ -82,6 +133,19 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> createBook(@PathVariable("id") Long id) {
+        try {
+            // Retrieve email from the Security Context
+            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // Fetch and return user details
+            User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
+            if (loggedUser.getId() == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         try {
             bookRepository.deleteById(id);
             return ResponseEntity.ok().build();

@@ -319,17 +319,27 @@
 		{
 			"name": "Delete Book",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJZT1VSIEFQUExJQ0FUSU9OL1BST0pFQ1QvQ09NUEFOWSBOQU1FIiwiaWF0IjoxNjgyODI1ODU5LCJlbWFpbCI6ImthdXNoaWtjMTBAand0LXRlc3QuY29tIn0.LznnWfEn4Mk2OCsVxO6NJSlmXbeIfxqbRquqJvJZl9E",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/books/3",
+					"raw": "{{url}}:{{port}}/books/6",
 					"host": [
 						"{{url}}"
 					],
 					"port": "{{port}}",
 					"path": [
 						"books",
-						"3"
+						"6"
 					]
 				}
 			},
@@ -338,6 +348,16 @@
 		{
 			"name": "New Book Order",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJZT1VSIEFQUExJQ0FUSU9OL1BST0pFQ1QvQ09NUEFOWSBOQU1FIiwiaWF0IjoxNjgyODI1ODU5LCJlbWFpbCI6ImthdXNoaWtjMTBAand0LXRlc3QuY29tIn0.LznnWfEn4Mk2OCsVxO6NJSlmXbeIfxqbRquqJvJZl9E",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -364,25 +384,66 @@
 			"response": []
 		},
 		{
-			"name": "Get Book Order by Id",
+			"name": "Update Book Order",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 23,\n    \"customerId\": 104,\n    \"trackingNumber\": \"1594295159\",\n    \"totalPrice\": 41.56,\n    \"orderDate\": \"2023-04-29T17:38:00.482694\",\n    \"details\": [\n        {\n            \"id\": 63,\n            \"book\": {\n                \"id\": 1,\n                \"title\": \"The 7 Habits of Highly Effective People\",\n                \"author\": \"Stephen R. Covey\",\n                \"description\": \"This beloved classic presents a principle-centered approach for solving both personal and professional problems. With penetrating insights and practical anecdotes\",\n                \"isbn\": \"978-1982137274\",\n                \"price\": 12.26,\n                \"frontCoverImageUrl\": \"images/978-1982137274_front_cover.jpg\",\n                \"backCoverImageUrl\": \"images/978-1982137274_rear_cover.jpg\"\n            },\n            \"ordered\": 2\n        },\n        {\n            \"book\": {\n                \"id\": 5,\n                \"title\": \"The 5 Years Before You Retire\",\n                \"author\": \"Emily Guy Birken\",\n                \"description\": \"Retirement Planning When You Need It the Most\",\n                \"isbn\": \"978-1507213605\",\n                \"price\": 10.39,\n                \"frontCoverImageUrl\": \"images/978-1507213605_front_cover.jpg\",\n                \"backCoverImageUrl\": \"images/978-1507213605_rear_cover.jpg\"\n            },\n            \"ordered\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{url}}:{{port}}/orders/search?customerId=104",
+					"raw": "{{url}}:{{port}}/orders/",
 					"host": [
 						"{{url}}"
 					],
 					"port": "{{port}}",
 					"path": [
 						"orders",
-						"search"
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book Order by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/orders/9",
+					"host": [
+						"{{url}}"
 					],
-					"query": [
-						{
-							"key": "customerId",
-							"value": "104"
-						}
+					"port": "{{port}}",
+					"path": [
+						"orders",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Order by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/orders/13",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"orders",
+						"13"
 					]
 				}
 			},
@@ -460,6 +521,80 @@
 							"key": "maxTotalPrice",
 							"value": "50.00"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate JWT token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"kaushikc10@jwt-test.com\",\n    \"password\" : \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Info with Token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJZT1VSIEFQUExJQ0FUSU9OL1BST0pFQ1QvQ09NUEFOWSBOQU1FIiwiaWF0IjoxNjgxNjgwNzczLCJlbWFpbCI6ImthdXNoaWtjMTNAand0LXRlc3QuY29tIn0.18ovqhEEVRtEm_h2CYcQdQ-j3pnRDQaRlFyicEsDhu0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"user.two@gmail.com\",\n    \"password\" : \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/info",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"info"
 					]
 				}
 			},

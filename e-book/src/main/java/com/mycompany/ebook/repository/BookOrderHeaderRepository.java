@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface BookOrderHeaderRepository  extends JpaRepository<BookOrderHeader, Long> {
 
     //Optional<BookOrderHeader> findById(Long id);
-    List<BookOrderHeader> findBookOrderHeaderById(Long id);
+    BookOrderHeader findBookOrderHeaderById(Long id);
 
     List<BookOrderHeader> findBookOrderHeaderByCustomerId(Long id);
 
