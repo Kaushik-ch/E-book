@@ -55,6 +55,14 @@ public class BookOrderHeaderController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        //Input validations
+        if(header.getCustomerId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide customer id");
+        }
+        if(header.getDetails() == null || header.getDetails().size() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide order details");
+        }
+
         try {
             // Generate random integers for tracking number
             int int_random = ThreadLocalRandom.current().nextInt();

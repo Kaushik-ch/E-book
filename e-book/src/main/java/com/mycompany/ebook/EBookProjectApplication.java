@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EBookProjectApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(EBookProjectApplication.class, args);
 	}
 

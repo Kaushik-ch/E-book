@@ -98,6 +98,23 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        //Input validations
+        if(book.getTitle() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book title");
+        }
+        if(book.getAuthor() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book author");
+        }
+        if(book.getPrice() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book price");
+        }
+        if(book.getIsbn() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide ISBN");
+        }
+        if(book.getDescription() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book description");
+        }
+
         try {
             Book savedBook = bookRepository.save(book);
             return ResponseEntity.ok(savedBook);
@@ -123,6 +140,26 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        //Input validations
+        if(book.getId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book id");
+        }
+        if(book.getTitle() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book title");
+        }
+        if(book.getAuthor() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book author");
+        }
+        if(book.getPrice() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book price");
+        }
+        if(book.getIsbn() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide ISBN");
+        }
+        if(book.getDescription() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book description");
+        }
+
         try {
             Book updatedBook = bookRepository.save(book);
             return ResponseEntity.ok(updatedBook);
@@ -144,6 +181,11 @@ public class BookController {
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        //Input validations
+        if(id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provide book id");
         }
 
         try {
