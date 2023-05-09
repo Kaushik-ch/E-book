@@ -3,8 +3,10 @@ package com.mycompany.ebook.controller;
 
 import com.mycompany.ebook.entity.Book;
 import com.mycompany.ebook.entity.User;
+import com.mycompany.ebook.entity.UserRole;
 import com.mycompany.ebook.repository.BookRepository;
 import com.mycompany.ebook.repository.UserRepo;
+import com.mycompany.ebook.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class BookController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @GetMapping("/search")
     public ResponseEntity<List<Book>> getBooks(
@@ -85,9 +90,10 @@ public class BookController {
     public ResponseEntity<?> createBook(@RequestBody Book book) {
 
         //JWT authentication
+        String email = "";
         try {
             // Retrieve email from the Security Context
-            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             // Fetch and return user details
             User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
             if (loggedUser.getId() == null) {
@@ -96,6 +102,13 @@ public class BookController {
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        //Authorize only Admins to access this resource
+        UserRole authUserRole =  userRoleRepository.findUserRoleByUserEmail(email);
+        System.out.println(authUserRole.getRole().getRole());
+        if(!authUserRole.getRole().getRole().equals("Admin")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sorry. You don't have credentials to access this resource");
         }
 
         //Input validations
@@ -127,9 +140,10 @@ public class BookController {
     public ResponseEntity<?> updateBook(@RequestBody Book book) {
 
         //JWT authentication
+        String email = "";
         try {
             // Retrieve email from the Security Context
-            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             // Fetch and return user details
             User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
             if (loggedUser.getId() == null) {
@@ -138,6 +152,13 @@ public class BookController {
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        //Authorize only Admins to access this resource
+        UserRole authUserRole =  userRoleRepository.findUserRoleByUserEmail(email);
+        System.out.println(authUserRole.getRole().getRole());
+        if(!authUserRole.getRole().getRole().equals("Admin")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sorry. You don't have credentials to access this resource");
         }
 
         //Input validations
@@ -170,9 +191,12 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> createBook(@PathVariable("id") Long id) {
+
+        //JWT authentication
+        String email = "";
         try {
             // Retrieve email from the Security Context
-            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             // Fetch and return user details
             User loggedUser = userRepo.findByEmailOrderByIdDesc(email).get();
             if (loggedUser.getId() == null) {
@@ -181,6 +205,13 @@ public class BookController {
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        //Authorize only Admins to access this resource
+        UserRole authUserRole =  userRoleRepository.findUserRoleByUserEmail(email);
+        System.out.println(authUserRole.getRole().getRole());
+        if(!authUserRole.getRole().getRole().equals("Admin")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sorry. You don't have credentials to access this resource");
         }
 
         //Input validations
